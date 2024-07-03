@@ -1,0 +1,136 @@
+{% extends 'appcliente/base.html' %}
+{% load static %}
+
+{% block title %}
+    Entrenamientos
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/style.css' %}">
+<div class="container content-wrapper">
+    <div class="row">
+        <!-- Categoría Infantil -->
+        <div class="col-md-12">
+            <div class="training-category" style="background-color: #AEDFF7;">
+                <h2>Entrenamientos Infantiles</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Duración</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Macrociclo</td>
+                            <td>6 meses</td>
+                            <td>Fase principal de desarrollo de la resistencia y la técnica.</td>
+                        </tr>
+                        <tr>
+                            <td>Microciclo</td>
+                            <td>1 semana</td>
+                            <td>Entrenamientos específicos de alta intensidad con enfoque en habilidades técnicas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Categoría Juvenil -->
+        <div class="col-md-12">
+            <div class="training-category" style="background-color: #FFD1DC;">
+                <h2>Entrenamientos Juveniles</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Duración</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Macrociclo</td>
+                            <td>6 meses</td>
+                            <td>Enfoque en el desarrollo de la resistencia aeróbica y la fuerza muscular.</td>
+                        </tr>
+                        <tr>
+                            <td>Microciclo</td>
+                            <td>1 semana</td>
+                            <td>Entrenamientos específicos para mejorar la velocidad y la técnica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Categoría Adultos -->
+        <div class="col-md-12">
+            <div class="training-category" style="background-color: #C8E6C9;">
+                <h2>Entrenamientos para Adultos</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Duración</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Macrociclo</td>
+                            <td>6 meses</td>
+                            <td>Fase de desarrollo de la resistencia y mantenimiento de la forma física.</td>
+                        </tr>
+                        <tr>
+                            <td>Microciclo</td>
+                            <td>1 semana</td>
+                            <td>Entrenamientos específicos para mejorar la técnica y la velocidad.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Categoría Master -->
+        <div class="col-md-12">
+            <div class="training-category" style="background-color: #FFE082;">
+                <h2>Entrenamientos Master</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Duración</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Macrociclo</td>
+                            <td>6 meses</td>
+                            <td>Fase de mantenimiento de la forma física y prevención de lesiones.</td>
+                        </tr>
+                        <tr>
+                            <td>Microciclo</td>
+                            <td>1 semana</td>
+                            <td>Entrenamientos específicos de bajo impacto para mejorar la técnica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recursos Adicionales -->
+        <div class="col-md-12">
+            <div class="resources">
+                <h2>Recursos Adicionales</h2>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=example1" target="_blank">Video sobre macrociclos de entrenamiento</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=example2" target="_blank">Video sobre microciclos de entrenamiento</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

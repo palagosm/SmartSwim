@@ -1,0 +1,191 @@
+.form-group {
+    margin-bottom: 1rem;
+}
+
+fieldset {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+legend {
+    font-size: 1.2rem;
+    padding: 0 10px;
+    width: auto;
+    border-bottom: none;
+}
+
+.content-wrapper {
+    margin-top: 20px;
+}
+
+.article-wrapper, .aside-wrapper {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+}
+
+.section-wrapper {
+    border: 1px solid #999;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.box {
+    margin-top: 55px;
+    background: #7cb8d6;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+}
+
+html.login-page {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    margin: 0;
+}
+
+html.register-page {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    margin: 0;
+}
+
+html.actualizar-page {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    margin: 0;
+}
+
+.background-login {
+    background: transparent; /* Hace que el fondo del body sea transparente */
+    min-height: 100vh; /* Asegura que el body cubra al menos toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto del body */
+}
+
+.background-register {
+    background: transparent; /* Hace que el fondo del body sea transparente */
+    min-height: 100vh; /* Asegura que el body cubra al menos toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto del body */
+}
+
+.background-update {
+    background: transparent; /* Hace que el fondo del body sea transparente */
+    min-height: 100vh; /* Asegura que el body cubra al menos toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto del body */
+}
+.navbar-custom {
+    background-color: #7faae9;
+    border-color: #7faae9;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color: #333; /* Color de los enlaces */
+}
+
+.navbar-custom .navbar-brand {
+    color: #333; /* Color de la marca */
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+
+.footer-background {
+    position: relative;
+    width: 100%;
+    height: 70px; /* Ajusta la altura del footer según tus necesidades */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.footer-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+}
+
+.box-footer {
+    background: #7cb8d6;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 200px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+    margin: 5px;
+}
+
+/* Estilos para el calendario */
+.calendar-container {
+    margin-bottom: 20px;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.table thead th {
+    background-color: #AEDFF7;
+    color: #333;
+    border-color: #dee2e6;
+}
+
+.table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    height: 60px; /* Altura fija para las celdas del calendario */
+    border-color: #dee2e6;
+}
+
+.competition-day {
+    background-color: #ffbb00;
+    color: #fff;
+    font-weight: bold;
+}
+
+.competition-details {
+    margin-top: 20px;
+}
+
+.competition {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+/* Estilos para formulario de contacto */
+#contactForm .form-group {
+    margin-bottom: 1rem;
+}
+
+#contactForm label {
+    font-weight: bold;
+}
+
+#contactForm .form-control {
+    background-color: #f0f8ff; /* Celeste muy pálido */
+    border: 1px solid #ccc;
+}
+
+#contactForm .btn-primary {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}

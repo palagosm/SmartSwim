@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="actualizar-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Información de Usuario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'style/style.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        html.actualizar-page {
+            background-image: url('{% static "img/waves2.svg" %}');
+        }
+    </style>
+</head>
+<body class="background-update">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mt-2">Actualizar Información de Usuario</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <fieldset class="box">
+                        <legend>Datos Personales</legend>
+                        
+                        <!-- Primera fila: nombre del cliente, primer nombre y apellido -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nombre_cliente">Nombre</label>
+                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" value="{{ form.nombre_cliente.value }}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="first_name">Primer Apellido</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.value }}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="last_name">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form.last_name.value }}" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Segunda fila: fecha de nacimiento, teléfono de contacto y email -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ form.fecha_nacimiento.value }}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="telefono_contacto">Teléfono de Contacto</label>
+                                <input type="tel" class="form-control" id="telefono_contacto" name="telefono_contacto" value="{{ form.telefono_contacto.value }}" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Actualización Exitosa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Usuario actualizado de forma correcta.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modalAcceptButton">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de error -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Errores en la Actualización</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación de eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que desea eliminar este usuario?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Definir la variable messages -->
+    <script>
+        var messages = [];
+        {% if messages %}
+            {% for message in messages %}
+                messages.push({tags: "{{ message.tags }}", message: "{{ message }}"});
+            {% endfor %}
+        {% endif %}
+        var homeUrl = "{% url 'home' %}";
+        var deleteUrl = "{% url 'eliminar-usuario' user.id %}";
+        var logoutUrl = "{% url 'logout' %}";
+        var loginUrl = "{% url 'login' %}";
+        var csrfToken = "{{ csrf_token }}";
+    </script>
+
+    <!-- Incluir el archivo JavaScript -->
+    <script src="{% static 'js/actualizar.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

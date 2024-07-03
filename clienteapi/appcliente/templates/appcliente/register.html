@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="register-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'style/style.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/registro.js' %}"></script>
+    <style>
+        html.register-page {
+            background-image: url('{% static "img/waves2.svg" %}');
+        }
+    </style>
+</head>
+<body class="background-register">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mt-2">Registro</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <fieldset class="box">
+                        <legend>Datos Personales</legend>
+                        
+                        <!-- Primera fila: nombre del cliente, primer nombre y apellido -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="nombre_cliente">Nombre</label>
+                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="first_name">Primer Apellido</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="last_name">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Segunda fila: fecha de nacimiento, teléfono de contacto y email -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="telefono_contacto">Teléfono de Contacto</label>
+                                <input type="tel" class="form-control" id="telefono_contacto" name="telefono_contacto" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    
+                    <fieldset class="box">
+                        <legend>Datos de la Cuenta</legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="username">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="username" name="username" required >
+                            </div>
+                        </div>
+                        
+                        <!-- Segunda fila: contraseña y confirmación de la contraseña -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="password1">Contraseña</label>
+                                <input type="password" class="form-control" id="password1" name="password1" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="password2">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="password2" name="password2" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Tercera fila: texto de ayuda -->
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    Tu contraseña debe contener al menos 8 caracteres, no puede ser una contraseña común y no puede ser enteramente numérica.
+                                </small>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'login' %}'">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Usuario registrado de forma correcta.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modalAcceptButton">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de error -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Errores en el Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% if registered %}
+                $('#successModal').modal('show');
+                document.getElementById('modalAcceptButton').addEventListener('click', function() {
+                    window.location.href = "{% url 'login' %}";
+                });
+            {% elif messages %}
+                $('#errorModal').modal('show');
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

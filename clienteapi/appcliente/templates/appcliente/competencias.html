@@ -1,0 +1,63 @@
+{% extends 'appcliente/base.html' %}
+{% load static %}
+
+{% block title %}
+    Competencias
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/style.css' %}">
+<div class="container content-wrapper">
+    <h2 class="text-center my-4">Próximas Competencias</h2>
+    
+    <!-- Calendario de Competencias -->
+    <div class="calendar-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                    <th>Sábado</th>
+                    <th>Domingo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ejemplo de una fila de calendario -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="competition-day">4</td>
+                    <td></td>
+                    <td class="competition-day">6</td>
+                    <td></td>
+                </tr>
+                <!-- Agrega más filas según sea necesario -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Descripción de Competencias -->
+    <div class="competition-details">
+        <div class="competition">
+            <h3>Competencia Regional</h3>
+            <p><strong>Fecha:</strong> 4 de Julio</p>
+            <p><strong>Hora:</strong> 10:00 AM</p>
+            <p><strong>Lugar:</strong> Piscina Olímpica de la Ciudad</p>
+            <p><strong>Categorías:</strong> Infantiles, Juveniles</p>
+            <p><strong>Descripción:</strong> Competencia regional con la participación de los mejores clubes de la región.</p>
+        </div>
+        <div class="competition">
+            <h3>Competencia Nacional</h3>
+            <p><strong>Fecha:</strong> 6 de Julio</p>
+            <p><strong>Hora:</strong> 9:00 AM</p>
+            <p><strong>Lugar:</strong> Complejo Deportivo Nacional</p>
+            <p><strong>Categorías:</strong> Adultos, Master</p>
+            <p><strong>Descripción:</strong> Competencia nacional donde se reunirán los mejores nadadores del país.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

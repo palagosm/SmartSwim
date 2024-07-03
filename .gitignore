@@ -1,0 +1,7 @@
+# Ignorar el entorno virtual
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Dejar de ignorar todos los demás archivos
+!*/
