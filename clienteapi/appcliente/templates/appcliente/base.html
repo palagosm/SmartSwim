@@ -45,9 +45,10 @@
                             <p class="nav-link">Bienvenido {{ request.session.nombre_cliente }} {{ request.session.first_name }}</p>
                         </li>
                         <div class="d-flex justify-content-center text-center">
-                            <a href="{% url 'actualizar_usuario' user.id %}">
+                            <a href="{% url 'actualizar_usuario' request.session.user_id %}">
                                 <button type="button" class="btn btn-primary mr-2 flex-fill" style="width: 150px;">Modificar</button>
                             </a>
+                            
                             <form action="{% url 'logout' %}" method="post" class="flex-fill">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-warning mr-2 w-100" style="width: 150px;">Cerrar Sesión</button>
@@ -80,5 +81,25 @@
             </div>
         </footer>
     </div>
+    <script>
+        // Obtener los datos de la sesión desde las etiquetas de script
+        const userId = "{{ request.session.user_id }}";
+        const firstName = "{{ request.session.first_name }}";
+        const lastName = "{{ request.session.last_name }}";
+        const nombreCliente = "{{ request.session.nombre_cliente }}";
+        const email = "{{ request.session.email }}";
+        const fechaNacimiento = "{{ request.session.fecha_nacimiento }}";
+        const telefonoContacto = "{{ request.session.telefono_contacto }}";
+
+        // Imprimir los datos en la consola
+        console.log("User ID:", userId);
+        console.log("First Name:", firstName);
+        console.log("Last Name:", lastName);
+        console.log("Nombre Cliente:", nombreCliente);
+        console.log("Email:", email);
+        console.log("Fecha Nacimiento:", fechaNacimiento);
+        console.log("Teléfono Contacto:", telefonoContacto);
+    </script>
+
 </body>
 </html>

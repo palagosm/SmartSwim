@@ -19,15 +19,12 @@ def login_view(request):
         response = requests.post(api_url, json={'username': username, 'password': password})
 
         if response.status_code == 200:
-            # Autenticación exitosa
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                # Obtener detalles del usuario
                 user_details_response = requests.get(user_details_url)
                 if user_details_response.status_code == 200:
                     user_data = user_details_response.json()
-                    # Guardar datos en la sesión
                     request.session['user_id'] = user_data.get('id')
                     request.session['first_name'] = user_data.get('first_name')
                     request.session['last_name'] = user_data.get('last_name')
@@ -37,7 +34,6 @@ def login_view(request):
                     request.session['telefono_contacto'] = user_data.get('telefono_contacto')
                     return redirect('home')
             else:
-                # Si el usuario no existe localmente, crearlo y autenticarse
                 user_data = response.json()
                 user = User.objects.create_user(username=username, password=password)
                 user.first_name = user_data.get('first_name', '')
@@ -48,11 +44,9 @@ def login_view(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    # Obtener detalles del usuario
                     user_details_response = requests.get(user_details_url)
                     if user_details_response.status_code == 200:
                         user_data = user_details_response.json()
-                        # Guardar datos en la sesión
                         request.session['user_id'] = user_data.get('id')
                         request.session['first_name'] = user_data.get('first_name')
                         request.session['last_name'] = user_data.get('last_name')
@@ -72,6 +66,11 @@ def home_view(request):
 
 @login_required
 def actualizar_usuario_view(request, usuario_id):
+    # Verifica que el usuario autenticado es el mismo que el que se está actualizando
+    if usuario_id != request.session.get('user_id'):
+        messages.error(request, 'No tienes permiso para actualizar este usuario.')
+        return redirect('home')
+    
     api_url = f"{API_BASE_URL}/actualizar-usuario/{usuario_id}/"
     headers = {'X-CSRFToken': request.COOKIES.get('csrftoken')}
 
