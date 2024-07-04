@@ -146,19 +146,28 @@ def register_view(request):
 
 @login_required
 def eliminar_usuario_view(request, usuario_id):
-    api_url = f"{API_BASE_URL}/eliminar-usuario/{usuario_id}/"
-    headers = {'X-CSRFToken': request.COOKIES.get('csrftoken')}
+    if usuario_id != request.session.get('user_id'):
+        messages.error(request, 'No tienes permiso para eliminar este usuario.')
+        return redirect('home')
 
-    if request.method == 'DELETE':
+    api_url = f"{API_BASE_URL}/eliminar-usuario/{usuario_id}/"
+    headers = {
+        'X-CSRFToken': request.COOKIES.get('csrftoken'),
+        'Content-Type': 'application/json'
+    }
+
+    if request.method == 'POST' and request.POST.get('_method') == 'DELETE':
         response = requests.delete(api_url, headers=headers)
         if response.status_code == 204:
-            messages.success(request, 'Usuario eliminado correctamente')
-            return redirect('logout')
+            messages.success(request, 'Usuario eliminado correctamente.')
+            logout(request)
+            return render(request, 'appcliente/actualizar_usuario.html', {'success': True, 'usuario_id': usuario_id})
         else:
-            messages.error(request, 'Error al eliminar el usuario')
+            messages.error(request, 'Error al eliminar el usuario.')
             return redirect('actualizar_usuario', usuario_id=usuario_id)
 
-    return render(request, 'appcliente/actualizar_usuario.html')
+    return render(request, 'appcliente/actualizar_usuario.html', {'usuario_id': usuario_id})
+
 
 def cerrar_sesion(request):
     logout(request)

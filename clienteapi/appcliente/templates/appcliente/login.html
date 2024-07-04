@@ -41,11 +41,11 @@
     </div>
 
     <!-- Modal de error -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog" aria-labelledby="loginErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Errores en el Login</h5>
+                    <h5 class="modal-title" id="loginErrorModalLabel">Errores en el Login</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -67,7 +67,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             {% if messages %}
-                $('#errorModal').modal('show');
+                $('#loginErrorModal').modal('show');
             {% endif %}
         });
     </script>

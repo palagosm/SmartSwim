@@ -1,56 +1,58 @@
-// static/js/actualizar.js
 document.addEventListener("DOMContentLoaded", function() {
     // Mostrar mensajes de éxito o error si los hay
     if (messages.length > 0) {
         for (let message of messages) {
             if (message.tags.includes('success')) {
-                $('#successModal').modal('show');
-                document.getElementById('modalAcceptButton').addEventListener('click', function() {
-                    // Cerrar sesión y redirigir al login
-                    fetch(logoutUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrfToken
-                        }
-                    }).then(response => {
-                        if (response.ok) {
-                            window.location.href = loginUrl;
-                        }
-                    });
-                });
+                $('#updateSuccessModal').modal('show');
+                const updateModalAcceptButton = document.getElementById('updateModalAcceptButton');
+                if (updateModalAcceptButton) {
+                    updateModalAcceptButton.addEventListener('click', updateLogoutAndRedirect, { once: true });
+                }
             } else {
-                $('#errorModal').modal('show');
+                $('#updateErrorModal').modal('show');
             }
         }
     }
 
     // Manejar la eliminación del usuario
-    document.getElementById('confirmDeleteButton').addEventListener('click', function() {
-        fetch(deleteUrl, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            }
-        }).then(response => {
-            if (response.ok) {
-                fetch(logoutUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.href = loginUrl;
-                    }
-                });
-            } else {
-                alert('Error al eliminar el usuario');
-            }
-        }).catch(error => {
-            alert('Error al eliminar el usuario');
-        });
-    });
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+    if (confirmDeleteButton) {
+        confirmDeleteButton.addEventListener('click', handleDeleteUser, { once: true });
+    }
 });
+
+function updateLogoutAndRedirect() {
+    fetch(logoutUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        }
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = loginUrl;
+        }
+    });
+}
+
+function handleDeleteUser() {
+    fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        }
+    }).then(response => {
+        if (response.ok) {
+            $('#deleteSuccessModal').modal('show');
+            const deleteModalSuccessAcceptButton = document.getElementById('deleteModalSuccessAcceptButton');
+            if (deleteModalSuccessAcceptButton) {
+                deleteModalSuccessAcceptButton.addEventListener('click', updateLogoutAndRedirect, { once: true });
+            }
+        } else {
+            $('#deleteErrorModal').modal('show');
+        }
+    }).catch(error => {
+        $('#deleteErrorModal').modal('show');
+    });
+}
