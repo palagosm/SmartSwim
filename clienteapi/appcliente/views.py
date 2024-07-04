@@ -159,7 +159,7 @@ def eliminar_usuario_view(request, usuario_id):
     if request.method == 'POST' and request.POST.get('_method') == 'DELETE':
         response = requests.delete(api_url, headers=headers)
         if response.status_code == 204:
-            messages.success(request, 'Usuario eliminado correctamente.')
+            #messages.success(request, 'Usuario eliminado correctamente.')
             logout(request)
             return render(request, 'appcliente/actualizar_usuario.html', {'success': True, 'usuario_id': usuario_id})
         else:
