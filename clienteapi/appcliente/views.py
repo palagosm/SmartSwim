@@ -70,7 +70,7 @@ def actualizar_usuario_view(request, usuario_id):
     if usuario_id != request.session.get('user_id'):
         messages.error(request, 'No tienes permiso para actualizar este usuario.')
         return redirect('home')
-    
+
     api_url = f"{API_BASE_URL}/actualizar-usuario/{usuario_id}/"
     headers = {'X-CSRFToken': request.COOKIES.get('csrftoken')}
 
@@ -82,9 +82,10 @@ def actualizar_usuario_view(request, usuario_id):
             response = requests.put(api_url, headers=headers, json=data)
             if response.status_code == 200:
                 messages.success(request, 'Datos actualizados correctamente')
-                return redirect('actualizar_usuario', usuario_id=usuario_id)
+                return render(request, 'appcliente/actualizar_usuario.html', {'success_update': True, 'usuario_id': usuario_id})
             else:
                 messages.error(request, 'Error al actualizar los datos')
+                return render(request, 'appcliente/actualizar_usuario.html', {'error_update': True, 'usuario_id': usuario_id})
     else:
         initial_data = {
             'first_name': request.session.get('first_name', ''),
@@ -184,5 +185,6 @@ def contacto_view(request):
 @login_required
 def entrenamientos_view(request):
     return render(request, 'appcliente/entrenamientos.html')
+
 
 
